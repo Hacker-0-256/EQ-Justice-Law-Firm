@@ -1,0 +1,1120 @@
+'use client'
+
+import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Scale, BookOpen, Briefcase, Users, Calculator, Plane, Building, Download, Eye, Calendar, ArrowRight, Search, Filter, FileText, Gavel, Shield, Globe, TrendingUp, Clock, Star } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { GlassCard } from '@/components/ui/glass-card'
+import { SectionDivider } from '@/components/ui/section-divider'
+import { Navigation } from '@/components/navigation'
+
+const categories = [
+  { id: 'all', name: 'All Categories', icon: BookOpen, color: 'from-blue-500 to-indigo-600' },
+  { id: 'business', name: 'Business Law', icon: Briefcase, color: 'from-emerald-500 to-teal-600' },
+  { id: 'labour', name: 'Labour & Employment', icon: Users, color: 'from-purple-500 to-violet-600' },
+  { id: 'tax', name: 'Tax & Finance', icon: Calculator, color: 'from-amber-500 to-orange-600' },
+  { id: 'immigration', name: 'Immigration', icon: Plane, color: 'from-cyan-500 to-blue-600' },
+  { id: 'construction', name: 'Construction & Real Estate', icon: Building, color: 'from-rose-500 to-pink-600' },
+]
+
+const legislationData = [
+  {
+    id: 1,
+    title: 'Labour Code of Rwanda',
+    description: 'Comprehensive employment law governing worker rights, employer obligations, and workplace standards',
+    category: 'labour',
+    icon: Users,
+    lastUpdated: '2023-12-15',
+    type: 'PDF',
+    size: '2.4 MB',
+    pages: 156,
+    priority: 'high',
+    downloads: '12.3K'
+  },
+  {
+    id: 2,
+    title: 'Company Law of Rwanda',
+    description: 'Legal framework for business registration, corporate governance, and commercial operations',
+    category: 'business',
+    icon: Briefcase,
+    lastUpdated: '2023-11-20',
+    type: 'PDF',
+    size: '3.1 MB',
+    pages: 203,
+    priority: 'high',
+    downloads: '18.7K'
+  },
+  {
+    id: 3,
+    title: 'Tax Administration Law',
+    description: 'Comprehensive tax regulations, compliance requirements, and administrative procedures',
+    category: 'tax',
+    icon: Calculator,
+    lastUpdated: '2024-01-10',
+    type: 'PDF',
+    size: '1.8 MB',
+    pages: 98,
+    priority: 'medium',
+    downloads: '9.2K'
+  },
+  {
+    id: 4,
+    title: 'Immigration and Emigration Law',
+    description: 'Regulations governing entry, residence, work permits, and citizenship procedures',
+    category: 'immigration',
+    icon: Plane,
+    lastUpdated: '2023-10-05',
+    type: 'PDF',
+    size: '2.2 MB',
+    pages: 134,
+    priority: 'medium',
+    downloads: '7.8K'
+  },
+  {
+    id: 5,
+    title: 'Construction Industry Law',
+    description: 'Building codes, construction permits, safety standards, and industry regulations',
+    category: 'construction',
+    icon: Building,
+    lastUpdated: '2023-09-18',
+    type: 'PDF',
+    size: '2.7 MB',
+    pages: 167,
+    priority: 'low',
+    downloads: '5.4K'
+  },
+  {
+    id: 6,
+    title: 'Commercial Code of Rwanda',
+    description: 'Legal framework for commercial transactions, contracts, and business relationships',
+    category: 'business',
+    icon: Scale,
+    lastUpdated: '2023-12-01',
+    type: 'PDF',
+    size: '4.2 MB',
+    pages: 289,
+    priority: 'high',
+    downloads: '15.6K'
+  }
+]
+
+const featuredInsights = [
+  {
+    id: 1,
+    title: 'New Digital Economy Regulations',
+    description: 'Rwanda introduces comprehensive framework for digital businesses, cryptocurrency, and e-commerce operations.',
+    date: '2024-01-15',
+    category: 'Business Law',
+    image: '/images/legal-insights/digital-economy.png',
+    readTime: '5 min read'
+  },
+  {
+    id: 2,
+    title: 'Updated Labour Protection Standards',
+    description: 'Enhanced worker safety protocols and remote work guidelines come into effect across all sectors.',
+    date: '2024-01-08',
+    category: 'Labour Law',
+    image: '/images/legal-insights/labour-protection.png',
+    readTime: '7 min read'
+  },
+  {
+    id: 3,
+    title: 'Tax Incentives for Green Energy',
+    description: 'New tax benefits for renewable energy projects and sustainable business practices.',
+    date: '2023-12-20',
+    category: 'Tax Law',
+    image: '/images/legal-insights/green-energy..png',
+    readTime: '4 min read'
+  }
+]
+
+export default function LegislationPage() {
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [isLoaded, setIsLoaded] = useState(false)
+
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  const filteredLegislation = legislationData.filter(item => {
+    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory
+    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         item.description.toLowerCase().includes(searchTerm.toLowerCase())
+    return matchesCategory && matchesSearch
+  })
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high': return 'from-red-500 to-rose-600'
+      case 'medium': return 'from-amber-500 to-orange-600'
+      case 'low': return 'from-green-500 to-emerald-600'
+      default: return 'from-gray-500 to-slate-600'
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-navy-900 to-indigo-900">
+      {/* Navigation */}
+      <Navigation currentPage="/legislation" />
+
+      {/* Hero Section */}
+      <section className="relative pt-20 pb-32 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0">
+          <img 
+            src="/images/hero-backgrounds/kigali-skyline-hero.png" 
+            alt="Kigali Skyline"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-800/70 via-slate-700/60 to-slate-800/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        </div>
+
+        {/* Floating Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gold-400/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="text-center"
+          >
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 mb-8"
+            >
+              <Gavel className="h-5 w-5 text-gold-400" />
+              <span className="text-white/90 font-medium">Legal Framework Portal</span>
+            </motion.div>
+
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-lora font-bold text-white mb-8 leading-tight">
+              Explore Rwanda's
+              <span className="block bg-gradient-to-r from-gold-400 via-yellow-300 to-gold-500 bg-clip-text text-transparent">
+                Legal Framework
+              </span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed mb-12">
+              EQ-Justice Law Firm curates essential legal acts and codes for your legal clarity and compliance. 
+              Navigate Rwanda's comprehensive legal landscape with confidence.
+            </p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            >
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-gold-500 to-yellow-400 hover:from-gold-600 hover:to-yellow-500 text-black font-bold px-8 py-4 rounded-full shadow-2xl hover:shadow-gold-500/25 transition-all duration-300"
+                onClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                <Search className="h-5 w-5 mr-2" />
+                Explore Documents
+              </Button>
+              <Button 
+                asChild
+                size="lg" 
+                variant="outline" 
+                className="bg-white/20 border-2 border-white text-black hover:bg-white hover:text-slate-800 px-8 py-4 rounded-full font-bold shadow-lg backdrop-blur-sm"
+              >
+                <Link href="/publications">
+                <FileText className="h-5 w-5 mr-2" />
+                Latest Updates
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Animated Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        >
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-1 h-3 bg-gold-400 rounded-full mt-2"
+            />
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Slanted Section Divider */}
+      <div className="relative">
+        <svg className="w-full h-24 fill-white" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
+          <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"></path>
+          <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"></path>
+        </svg>
+      </div>
+
+      {/* Search and Filter Section */}
+      <section id="search-section" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-lora font-bold text-navy-900 mb-6">
+              Interactive Document Library
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Access Rwanda's most important legal documents with advanced search and filtering capabilities
+            </p>
+          </motion.div>
+
+          {/* Enhanced Search Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="max-w-2xl mx-auto mb-12"
+          >
+            <div className="relative group">
+              <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-slate-400 h-6 w-6 group-focus-within:text-navy-600 transition-colors" />
+              <Input
+                type="text"
+                placeholder="Search legislation by title, category, or keywords..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-14 pr-6 h-16 text-lg bg-white border-2 border-slate-200 focus:border-navy-400 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-navy-500/5 to-gold-500/5 rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+            </div>
+          </motion.div>
+
+          {/* Category Tabs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="flex flex-wrap justify-center gap-4 mb-16"
+          >
+            {categories.map((category, index) => {
+              const Icon = category.icon
+              const isActive = selectedCategory === category.id
+              return (
+                <motion.button
+                  key={category.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`group relative flex items-center gap-3 px-6 py-4 rounded-2xl font-semibold transition-all duration-300 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-navy-600 to-blue-600 text-white shadow-2xl shadow-navy-500/25'
+                      : 'bg-white hover:bg-slate-50 text-slate-700 border-2 border-slate-200 hover:border-navy-300 shadow-lg hover:shadow-xl'
+                  }`}
+                >
+                  <div className={`p-2 rounded-xl ${isActive ? 'bg-white/20' : `bg-gradient-to-r ${category.color}`}`}>
+                    <Icon className={`h-5 w-5 ${isActive ? 'text-white' : 'text-white'}`} />
+                  </div>
+                  {category.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute inset-0 bg-gradient-to-r from-navy-600 to-blue-600 rounded-2xl -z-10"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                </motion.button>
+              )
+            })}
+          </motion.div>
+
+          {/* Document Grid */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedCategory}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {filteredLegislation.map((item, index) => {
+                const Icon = item.icon
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    className="group"
+                  >
+                    <div className="relative h-full bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-100">
+                      {/* Priority Badge */}
+                      <div className={`absolute top-6 right-6 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r ${getPriorityColor(item.priority)} shadow-lg`}>
+                        {item.priority.toUpperCase()}
+                      </div>
+
+                      {/* Gradient Background */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 opacity-60"></div>
+                      
+                      <div className="relative p-8">
+                        {/* Icon */}
+                        <div className="mb-6">
+                          <div className="relative inline-flex">
+                            <div className="p-4 bg-gradient-to-br from-navy-500 to-blue-600 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300">
+                              <Icon className="h-8 w-8 text-white" />
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-br from-navy-400 to-blue-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <h3 className="font-lora font-bold text-2xl text-navy-900 mb-4 group-hover:text-navy-700 transition-colors line-clamp-2">
+                          {item.title}
+                        </h3>
+                        
+                        <p className="text-slate-600 mb-6 line-clamp-3 leading-relaxed">
+                          {item.description}
+                        </p>
+
+                        {/* Metadata */}
+                        <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
+                          <div className="flex items-center gap-2 text-slate-500">
+                            <FileText className="h-4 w-4" />
+                            <span>{item.pages} pages</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-slate-500">
+                            <Download className="h-4 w-4" />
+                            <span>{item.downloads}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-slate-500">
+                            <Calendar className="h-4 w-4" />
+                            <span>{new Date(item.lastUpdated).toLocaleDateString()}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-slate-500">
+                            <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                            <span>{item.size}</span>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex gap-3">
+                          <Button className="flex-1 bg-gradient-to-r from-navy-600 to-blue-600 hover:from-navy-700 hover:to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                            <Eye className="h-4 w-4 mr-2" />
+                            View PDF
+                          </Button>
+                          <Button variant="outline" className="px-4 border-2 border-slate-200 hover:border-navy-300 rounded-xl hover:bg-navy-50 transition-all duration-300">
+                            <Download className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      {/* Hover Glow Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-navy-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Featured Legal Insights */}
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-lora font-bold text-navy-900 mb-6">
+              Featured Legal Insights
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Stay informed with the latest legal developments and regulatory changes in Rwanda
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredInsights.map((insight, index) => (
+              <motion.article
+                key={insight.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -8 }}
+                className="group cursor-pointer"
+              >
+                <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                  <div className="relative">
+                    <img 
+                      src={insight.image || "/placeholder.svg"} 
+                      alt={insight.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-navy-600">
+                      {insight.category}
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="flex items-center gap-4 text-sm text-slate-500 mb-3">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="h-4 w-4" />
+                        {new Date(insight.date).toLocaleDateString()}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="h-4 w-4" />
+                        {insight.readTime}
+                      </span>
+                    </div>
+                    
+                    <h3 className="font-lora font-bold text-xl text-navy-900 mb-3 group-hover:text-navy-700 transition-colors">
+                      {insight.title}
+                    </h3>
+                    
+                    <p className="text-slate-600 mb-4 line-clamp-3">
+                      {insight.description}
+                    </p>
+                    
+                    <div className="flex items-center text-navy-600 font-semibold group-hover:text-navy-700 transition-colors">
+                      <span>Read More</span>
+                      <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-navy-900 via-slate-900 to-indigo-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/images/background-patterns/legal-pattern.png')] opacity-5"></div>
+        
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-lora font-bold text-white mb-6">
+              Need Expert Legal Guidance?
+            </h2>
+            <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+              Our experienced legal team is ready to help you navigate Rwanda's complex legal landscape with confidence and clarity.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-gold-500 to-yellow-400 hover:from-gold-600 hover:to-yellow-500 text-black font-bold px-8 py-4 rounded-full shadow-2xl hover:shadow-gold-500/25 transition-all duration-300"
+                onClick={() => window.location.href = '/consultation'}
+              >
+                <Calendar className="h-5 w-5 mr-2" />
+                Schedule Consultation
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 border-white text-white hover:bg-white hover:text-slate-800 px-8 py-4 rounded-full backdrop-blur-sm font-semibold"
+                onClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                <Shield className="h-5 w-5 mr-2" />
+                Explore Documents
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Search and Filter Section */}
+      <section className="py-20 bg-white">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <motion.div
+
+            initial={{ opacity: 0, y: 30 }}
+
+            whileInView={{ opacity: 1, y: 0 }}
+
+            transition={{ duration: 0.8 }}
+
+            viewport={{ once: true }}
+
+            className="text-center mb-16"
+
+          >
+
+            <h2 className="text-4xl md:text-5xl font-lora font-bold text-navy-900 mb-6">
+
+              Interactive Document Library
+
+            </h2>
+
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+
+              Access Rwanda's most important legal documents with advanced search and filtering capabilities
+
+            </p>
+
+          </motion.div>
+
+
+
+          {/* Enhanced Search Bar */}
+
+          <motion.div
+
+            initial={{ opacity: 0, y: 20 }}
+
+            whileInView={{ opacity: 1, y: 0 }}
+
+            transition={{ duration: 0.6, delay: 0.2 }}
+
+            viewport={{ once: true }}
+
+            className="max-w-2xl mx-auto mb-12"
+
+          >
+
+            <div className="relative group">
+
+              <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-slate-400 h-6 w-6 group-focus-within:text-navy-600 transition-colors" />
+
+              <Input
+
+                type="text"
+
+                placeholder="Search legislation by title, category, or keywords..."
+
+                value={searchTerm}
+
+                onChange={(e) => setSearchTerm(e.target.value)}
+
+                className="pl-14 pr-6 h-16 text-lg bg-white border-2 border-slate-200 focus:border-navy-400 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-r from-navy-500/5 to-gold-500/5 rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+            </div>
+
+          </motion.div>
+
+
+
+          {/* Category Tabs */}
+
+          <motion.div
+
+            initial={{ opacity: 0, y: 20 }}
+
+            whileInView={{ opacity: 1, y: 0 }}
+
+            transition={{ duration: 0.6, delay: 0.4 }}
+
+            viewport={{ once: true }}
+
+            className="flex flex-wrap justify-center gap-4 mb-16"
+
+          >
+
+            {categories.map((category, index) => {
+
+              const Icon = category.icon
+
+              const isActive = selectedCategory === category.id
+
+              return (
+
+                <motion.button
+
+                  key={category.id}
+
+                  initial={{ opacity: 0, scale: 0.9 }}
+
+                  animate={{ opacity: 1, scale: 1 }}
+
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+
+                  onClick={() => setSelectedCategory(category.id)}
+
+                  className={`group relative flex items-center gap-3 px-6 py-4 rounded-2xl font-semibold transition-all duration-300 ${
+
+                    isActive
+
+                      ? 'bg-gradient-to-r from-navy-600 to-blue-600 text-white shadow-2xl shadow-navy-500/25'
+
+                      : 'bg-white hover:bg-slate-50 text-slate-700 border-2 border-slate-200 hover:border-navy-300 shadow-lg hover:shadow-xl'
+
+                  }`}
+
+                >
+
+                  <div className={`p-2 rounded-xl ${isActive ? 'bg-white/20' : `bg-gradient-to-r ${category.color}`}`}>
+
+                    <Icon className={`h-5 w-5 ${isActive ? 'text-white' : 'text-white'}`} />
+
+                  </div>
+
+                  {category.name}
+
+                  {isActive && (
+
+                    <motion.div
+
+                      layoutId="activeTab"
+
+                      className="absolute inset-0 bg-gradient-to-r from-navy-600 to-blue-600 rounded-2xl -z-10"
+
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+
+                    />
+
+                  )}
+
+                </motion.button>
+
+              )
+
+            })}
+
+          </motion.div>
+
+
+
+          {/* Document Grid */}
+
+          <AnimatePresence mode="wait">
+
+            <motion.div
+
+              key={selectedCategory}
+
+              initial={{ opacity: 0, y: 20 }}
+
+              animate={{ opacity: 1, y: 0 }}
+
+              exit={{ opacity: 0, y: -20 }}
+
+              transition={{ duration: 0.5 }}
+
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+
+            >
+
+              {filteredLegislation.map((item, index) => {
+
+                const Icon = item.icon
+
+                return (
+
+                  <motion.div
+
+                    key={item.id}
+
+                    initial={{ opacity: 0, y: 30 }}
+
+                    animate={{ opacity: 1, y: 0 }}
+
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+
+                    whileHover={{ y: -8, scale: 1.02 }}
+
+                    className="group"
+
+                  >
+
+                    <div className="relative h-full bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-100">
+
+                      {/* Priority Badge */}
+
+                      <div className={`absolute top-6 right-6 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r ${getPriorityColor(item.priority)} shadow-lg`}>
+
+                        {item.priority.toUpperCase()}
+
+                      </div>
+
+
+
+                      {/* Gradient Background */}
+
+                      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 opacity-60"></div>
+
+                      
+                      
+                      <div className="relative p-8">
+
+                        {/* Icon */}
+
+                        <div className="mb-6">
+
+                          <div className="relative inline-flex">
+
+                            <div className="p-4 bg-gradient-to-br from-navy-500 to-blue-600 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300">
+
+                              <Icon className="h-8 w-8 text-white" />
+
+                            </div>
+
+                            <div className="absolute inset-0 bg-gradient-to-br from-navy-400 to-blue-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+
+                          </div>
+
+                        </div>
+
+
+
+                        {/* Content */}
+
+                        <h3 className="font-lora font-bold text-2xl text-navy-900 mb-4 group-hover:text-navy-700 transition-colors line-clamp-2">
+
+                          {item.title}
+
+                        </h3>
+
+                        
+                        
+                        <p className="text-slate-600 mb-6 line-clamp-3 leading-relaxed">
+
+                          {item.description}
+
+                        </p>
+
+
+
+                        {/* Metadata */}
+
+                        <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
+
+                          <div className="flex items-center gap-2 text-slate-500">
+
+                            <FileText className="h-4 w-4" />
+
+                            <span>{item.pages} pages</span>
+
+                          </div>
+
+                          <div className="flex items-center gap-2 text-slate-500">
+
+                            <Download className="h-4 w-4" />
+
+                            <span>{item.downloads}</span>
+
+                          </div>
+
+                          <div className="flex items-center gap-2 text-slate-500">
+
+                            <Calendar className="h-4 w-4" />
+
+                            <span>{new Date(item.lastUpdated).toLocaleDateString()}</span>
+
+                          </div>
+
+                          <div className="flex items-center gap-2 text-slate-500">
+
+                            <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+
+                            <span>{item.size}</span>
+
+                          </div>
+
+                        </div>
+
+
+
+                        {/* Action Buttons */}
+
+                        <div className="flex gap-3">
+
+                          <Button className="flex-1 bg-gradient-to-r from-navy-600 to-blue-600 hover:from-navy-700 hover:to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+
+                            <Eye className="h-4 w-4 mr-2" />
+
+                            View PDF
+
+                          </Button>
+
+                          <Button variant="outline" className="px-4 border-2 border-slate-200 hover:border-navy-300 rounded-xl hover:bg-navy-50 transition-all duration-300">
+
+                            <Download className="h-4 w-4" />
+
+                          </Button>
+
+                        </div>
+
+                      </div>
+
+
+
+                      {/* Hover Glow Effect */}
+
+                      <div className="absolute inset-0 bg-gradient-to-r from-navy-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
+
+                    </div>
+
+                  </motion.div>
+
+                )
+
+              })}
+
+            </motion.div>
+
+          </AnimatePresence>
+
+        </div>
+
+      </section>
+
+
+
+      {/* Featured Legal Insights */}
+
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <motion.div
+
+            initial={{ opacity: 0, y: 30 }}
+
+            whileInView={{ opacity: 1, y: 0 }}
+
+            transition={{ duration: 0.8 }}
+
+            viewport={{ once: true }}
+
+            className="text-center mb-16"
+
+          >
+
+            <h2 className="text-4xl md:text-5xl font-lora font-bold text-navy-900 mb-6">
+
+              Featured Legal Insights
+
+            </h2>
+
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+
+              Stay informed with the latest legal developments and regulatory changes in Rwanda
+
+            </p>
+
+          </motion.div>
+
+
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            {featuredInsights.map((insight, index) => (
+
+              <motion.article
+
+                key={insight.id}
+
+                initial={{ opacity: 0, y: 30 }}
+
+                whileInView={{ opacity: 1, y: 0 }}
+
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+
+                viewport={{ once: true }}
+
+                whileHover={{ y: -8 }}
+
+                className="group cursor-pointer"
+
+              >
+
+                <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
+
+                  <div className="relative">
+
+                    <img 
+
+                      src={insight.image || "/placeholder.svg"} 
+
+                      alt={insight.title}
+
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-navy-600">
+
+                      {insight.category}
+
+                    </div>
+
+                  </div>
+
+                  
+                  
+                  <div className="p-6">
+
+                    <div className="flex items-center gap-4 text-sm text-slate-500 mb-3">
+
+                      <span className="flex items-center gap-1">
+
+                        <Calendar className="h-4 w-4" />
+
+                        {new Date(insight.date).toLocaleDateString()}
+
+                      </span>
+
+                      <span className="flex items-center gap-1">
+
+                        <Clock className="h-4 w-4" />
+
+                        {insight.readTime}
+
+                      </span>
+
+                    </div>
+
+                    
+                    
+                    <h3 className="font-lora font-bold text-xl text-navy-900 mb-3 group-hover:text-navy-700 transition-colors">
+
+                      {insight.title}
+
+                    </h3>
+
+                    
+                    
+                    <p className="text-slate-600 mb-4 line-clamp-3">
+
+                      {insight.description}
+
+                    </p>
+
+                    
+                    
+                    <div className="flex items-center text-navy-600 font-semibold group-hover:text-navy-700 transition-colors">
+
+                      <span>Read More</span>
+
+                      <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </motion.article>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      {/* CTA Section */}
+
+      <section className="py-20 bg-gradient-to-r from-navy-900 via-slate-900 to-indigo-900 relative overflow-hidden">
+
+        <div className="absolute inset-0 bg-[url('/images/background-patterns/legal-pattern.png')] opacity-5"></div>
+
+        
+        
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+          <motion.div
+
+            initial={{ opacity: 0, y: 30 }}
+
+            whileInView={{ opacity: 1, y: 0 }}
+
+            transition={{ duration: 0.8 }}
+
+            viewport={{ once: true }}
+
+          >
+
+            <h2 className="text-4xl md:text-5xl font-lora font-bold text-white mb-6">
+
+              Need Expert Legal Guidance?
+
+            </h2>
+
+            <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+
+              Our experienced legal team is ready to help you navigate Rwanda's complex legal landscape with confidence and clarity.
+
+            </p>
+
+            
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-gold-500 to-yellow-400 hover:from-gold-600 hover:to-yellow-500 text-black font-bold px-8 py-4 rounded-full shadow-2xl hover:shadow-gold-500/25 transition-all duration-300"
+                onClick={() => window.location.href = '/consultation'}
+              >
+
+                <Calendar className="h-5 w-5 mr-2" />
+
+                Schedule Consultation
+
+              </Button>
+
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 border-white text-white hover:bg-white hover:text-slate-800 px-8 py-4 rounded-full backdrop-blur-sm font-semibold"
+                onClick={() => window.location.href = '/contact'}
+              >
+
+                <Shield className="h-5 w-5 mr-2" />
+
+                Contact Us
+
+              </Button>
+
+            </div>
+
+          </motion.div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  )
+
+}
+
+
