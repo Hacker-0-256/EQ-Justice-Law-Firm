@@ -18,8 +18,7 @@ const lora = Lora({
 export const metadata: Metadata = {
       title: "EQ-Justice Law Firm - Redefining Legal Excellence in Rwanda",
   description:
-    "Premier law firm in Rwanda offering world-class legal services across 14+ practice areas. Cultivating top legal minds since 2023.",
-    generator: 'v0.dev'
+    "Premier law firm in Rwanda offering world-class legal services across 14+ practice areas. Cultivating top legal minds since 2023."
 }
 
 export default function RootLayout({
