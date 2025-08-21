@@ -299,9 +299,8 @@ export default function ContactPage() {
                       { value: "corporate", label: "Corporate Law" },
                       { value: "litigation", label: "Litigation" },
                       { value: "investment", label: "Investment Law" },
-                      { value: "employment", label: "Employment Law" },
+                      { value: "employment", label: "Labour, Employment & Immigration" },
                       { value: "real-estate", label: "Real Estate" },
-                      { value: "immigration", label: "Immigration" },
                       { value: "other", label: "Other" },
                     ]}
                   />

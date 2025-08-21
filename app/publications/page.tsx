@@ -39,7 +39,7 @@ const publications = [
   {
     title: "Employment Rights in Rwanda: What Every Employer Should Know",
     description: "Essential guide covering employment contracts, termination procedures, and worker rights in Rwanda.",
-    category: "Labour & Employment",
+    category: "Labour, Employment & Immigration",
     date: "2024-11-28",
     type: "PDF",
     downloadUrl: "#",

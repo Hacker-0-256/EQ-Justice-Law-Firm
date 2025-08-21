@@ -13,9 +13,8 @@ import { Navigation } from '@/components/navigation'
 const categories = [
   { id: 'all', name: 'All Categories', icon: BookOpen, color: 'from-blue-500 to-indigo-600' },
   { id: 'business', name: 'Business Law', icon: Briefcase, color: 'from-emerald-500 to-teal-600' },
-  { id: 'labour', name: 'Labour & Employment', icon: Users, color: 'from-purple-500 to-violet-600' },
+  { id: 'labour', name: 'Labour, Employment & Immigration', icon: Users, color: 'from-purple-500 to-violet-600' },
   { id: 'tax', name: 'Tax & Finance', icon: Calculator, color: 'from-amber-500 to-orange-600' },
-  { id: 'immigration', name: 'Immigration', icon: Plane, color: 'from-cyan-500 to-blue-600' },
   { id: 'construction', name: 'Construction & Real Estate', icon: Building, color: 'from-rose-500 to-pink-600' },
 ]
 
@@ -63,7 +62,7 @@ const legislationData = [
     id: 4,
     title: 'Immigration and Emigration Law',
     description: 'Regulations governing entry, residence, work permits, and citizenship procedures',
-    category: 'immigration',
+    category: 'labour',
     icon: Plane,
     lastUpdated: '2023-10-05',
     type: 'PDF',

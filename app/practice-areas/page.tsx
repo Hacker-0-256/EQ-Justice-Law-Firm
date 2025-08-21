@@ -35,22 +35,30 @@ import {
 const practiceAreas = [
   {
     icon: Users,
-    title: "Labour and Employment Law",
-    description: "We represent clients in Rwanda in matters of labor and employment including helping employers to get work permits, allegations of wrongful termination. We also provide broad consultations in collective bargaining, negotiations, conciliation, arbitration and administrative proceeding. In addition, our firm advises employers on compliance issues under law and employment law.",
+    title: "Labour, Employment & Immigration Law",
+    description: "We represent clients in Rwanda in matters of labor, employment, and immigration including helping employers to get work permits, allegations of wrongful termination, and all immigration-related legal services. We also provide broad consultations in collective bargaining, negotiations, conciliation, arbitration and administrative proceeding. In addition, our firm advises employers on compliance issues under labour, employment, and immigration law.",
     gradient: "from-blue-600 to-purple-600",
     services: [
       "Employment contract drafting and review",
-      "Work permit applications for employers",
+      "Work permit applications for employers and individuals",
+      "Residence permit processing",
+      "Visa applications and renewals",
       "Wrongful termination defense",
       "Collective bargaining and negotiations",
       "Conciliation and arbitration proceedings",
       "Employment law compliance advisory",
       "Workplace dispute resolution",
       "Administrative proceedings representation",
+      "Expatriate legal support",
+      "Immigration dispute resolution",
+      "Corporate immigration advisory",
+      "Citizenship applications",
     ],
     caseStudies: [
       "Successfully defended a major employer in wrongful termination allegations",
       "Negotiated collective bargaining agreement for 300+ employees in manufacturing sector",
+      "Secured work permits for 75+ expatriate employees for multinational company",
+      "Successfully processed residence permits for 50+ foreign investors",
     ],
   },
   {
@@ -193,26 +201,7 @@ const practiceAreas = [
       "Successfully negotiated settlement for complex insurance dispute",
     ],
   },
-  {
-    icon: Plane,
-    title: "Immigration",
-    description: "We assist employers and individuals with all aspects of immigration law, including obtaining work permits, residence permits, and visas. Our services also cover legal support for expatriates, compliance with Rwanda's immigration regulations, and representation in immigration-related disputes.",
-    gradient: "from-cyan-600 to-blue-600",
-    services: [
-      "Work permit applications",
-      "Residence permit processing",
-      "Visa applications and renewals",
-      "Expatriate legal support",
-      "Rwanda immigration regulation compliance",
-      "Immigration dispute resolution",
-      "Corporate immigration advisory",
-      "Citizenship applications",
-    ],
-    caseStudies: [
-      "Secured work permits for 75+ expatriate employees for multinational company",
-      "Successfully processed residence permits for 50+ foreign investors",
-    ],
-  },
+
   {
     icon: Home,
     title: "Real Estate and Construction",

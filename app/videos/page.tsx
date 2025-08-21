@@ -93,7 +93,7 @@ const videosData = [
     id: 6,
     title: 'Immigration Law Updates & Opportunities',
     description: 'Latest changes to work permits, visa requirements, investment immigration, and citizenship procedures in Rwanda.',
-    category: 'education',
+    category: 'labour',
     duration: '15:30',
     views: '19.8K',
     likes: '934',
@@ -116,8 +116,8 @@ const featuredPlaylist = [
   },
   {
     id: 'playlist-2',
-    title: 'Employment Law Essentials',
-    description: 'Complete guide to workplace rights and obligations',
+    title: 'Labour, Employment & Immigration Essentials',
+    description: 'Complete guide to workplace rights, obligations, and immigration matters',
     videoCount: 6,
     totalDuration: '1h 45m',
     thumbnail: '/images/playlist-thumbnails/employment-playlist.png'

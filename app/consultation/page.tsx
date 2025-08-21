@@ -35,14 +35,13 @@ import {
 } from "@/lib/form-utils"
 
 const practiceAreas = [
-  "Labour & Employment",
+  "Labour, Employment & Immigration",
   "Investment Law",
   "Insolvency",
   "Corporate Policy & Framework",
   "Corporate & Commercial",
   "Taxation",
   "Litigation & ADR",
-  "Immigration",
   "Insurance",
   "Real Estate & Construction",
   "Transportation Law",

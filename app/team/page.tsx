@@ -32,9 +32,9 @@ const teamMembers = [
   {
     name: "Grace Mukamana",
     title: "Partner",
-    specialization: "Employment & Immigration",
+    specialization: "Labour, Employment & Immigration",
     image: "/images/EQ-law-firm.png",
-    bio: "Grace specializes in employment law and immigration matters, helping both individuals and corporations navigate complex regulatory frameworks. She is valued for her practical solutions and client-focused approach.",
+    bio: "Grace specializes in labour law, employment law, and immigration matters, helping both individuals and corporations navigate complex regulatory frameworks. She is valued for her practical solutions and client-focused approach.",
     email: "eqjustice.rw@gmail.com",
     linkedin: "https://www.linkedin.com/in/grace-mukamana-eqjustice",
     gradient: "from-emerald-600 to-teal-600",
@@ -252,10 +252,10 @@ export default function TeamPage() {
                           <h3 className="text-lg font-bold font-lora text-slate-800 mb-3">Grace Mukamana</h3>
                           <p className="text-lg font-medium text-amber-600 mb-4">Partner</p>
                           <Badge className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-0 px-6 py-2 rounded-full text-sm font-medium">
-                            Employment & Immigration
+                            Labour, Employment & Immigration
                           </Badge>
                         </div>
-                        <p className="text-slate-600 leading-relaxed text-center text-sm mb-6">Grace specializes in employment law and immigration matters, helping both individuals and corporations navigate complex regulatory frameworks.</p>
+                        <p className="text-slate-600 leading-relaxed text-center text-sm mb-6">Grace specializes in labour law, employment law, and immigration matters, helping both individuals and corporations navigate complex regulatory frameworks.</p>
                         
                         {/* Contact Buttons */}
                         <div className="flex justify-center space-x-4">

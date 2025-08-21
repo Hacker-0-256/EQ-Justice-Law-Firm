@@ -36,8 +36,8 @@ import {
 const practiceAreas = [
   {
     icon: Users,
-    title: "Labour and Employment Law",
-    description: "We represent clients in Rwanda in matters of labor and employment including helping employers to get work permits, allegations of wrongful termination. We also provide broad consultations in collective bargaining, negotiations, conciliation, arbitration and administrative proceeding. In addition, our firm advises employers on compliance issues under law and employment law.",
+    title: "Labour, Employment & Immigration Law",
+    description: "We represent clients in Rwanda in matters of labor, employment, and immigration including helping employers to get work permits, allegations of wrongful termination, and all immigration-related legal services. We also provide broad consultations in collective bargaining, negotiations, conciliation, arbitration and administrative proceeding. In addition, our firm advises employers on compliance issues under labour, employment, and immigration law.",
     gradient: "from-blue-600 to-purple-600",
   },
   {
@@ -83,12 +83,6 @@ const practiceAreas = [
     gradient: "from-green-600 to-emerald-600",
   },
   {
-    icon: Plane,
-    title: "Immigration",
-    description: "We assist employers and individuals with all aspects of immigration law, including obtaining work permits, residence permits, and visas. Our services also cover legal support for expatriates, compliance with Rwanda’s immigration regulations, and representation in immigration-related disputes.",
-    gradient: "from-cyan-600 to-blue-600",
-  },
-  {
     icon: Home,
     title: "Real Estate and Construction",
     description: "Our broad law practice is complemented by our extensive expertise in residential real estate matters and construction transaction. Our lawyers are high qualified in advising on drafting appropriate agreements to the acquisition of land, property, etc. We also represent brokers and individual buyers and sellers in real estate disputes. Real Estate and Construction Law means those litigations that relate to any kind of residential or commercial property transactions.",
@@ -122,7 +116,7 @@ const practiceAreas = [
 
 const stats = [
   { number: 2023, label: "Founded", suffix: "" },
-  { number: 15, label: "Practice Areas", suffix: "+" },
+  { number: 14, label: "Practice Areas", suffix: "+" },
   { number: 250, label: "Cases Won", suffix: "+" },
   { number: 50, label: "Corporate Clients", suffix: "+" },
 ]
